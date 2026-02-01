@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"url-shortner/internal/config"
 	"url-shortner/internal/handler"
+	"url-shortner/internal/middleware"
 	"url-shortner/internal/service"
 	"url-shortner/internal/store"
 
@@ -33,6 +34,6 @@ func main() {
 	mux.Handle("/", redirectHandler)
 
 	log.Printf("🚀 URL shortener running on %s\n", baseURL)
-	log.Fatal(http.ListenAndServe(":"+port, mux))
+	log.Fatal(http.ListenAndServe(":"+port, middleware.Logger(mux)))
 
 }
